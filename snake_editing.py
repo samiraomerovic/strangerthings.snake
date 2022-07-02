@@ -60,6 +60,7 @@ def message(msg, color):
 
 
 def gameLoop():
+    global snake_speed
     game_over = False
     game_close = False
 
@@ -144,13 +145,13 @@ def gameLoop():
         our_snake(snake_block, snake_List, direction)
         Your_score(Length_of_snake - 1)
 
-
         pygame.display.update()
 
         if foodx in range(int(x1), int(x1) + 50) and foody in range(int(y1), int(y1) + 50):
             foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
             foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
             Length_of_snake += 1
+            snake_speed += 1
 
         clock.tick(snake_speed)
 

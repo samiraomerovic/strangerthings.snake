@@ -1,5 +1,3 @@
-import sys
-
 import pygame
 import random
 
@@ -32,7 +30,7 @@ snake_block = 10
 snake_speed = 15
 
 font_style = pygame.font.SysFont("bodoni 72", 30)
-score_font = pygame.font.SysFont("bodoni 72", 25)
+score_font = pygame.font.SysFont("bodoni 72", 40)
 
 
 def Your_score(score):
@@ -70,14 +68,14 @@ def button(msg, x, y, w, h, ic, ac, msgx, action=None):
         pygame.draw.rect(dis, ac, (x, y, w, h))
         if click[0] == 1 and action != None:
             if action == "login":
-                gameLoop()
-                # TODO
+                game_login()
             elif action == "quit":
                 pygame.quit()
-                sys.exit()
+                quit()
             elif action == "register":
-                gameLoop()
-                # TODO
+                game_register()
+            elif action == "return":
+                game_intro()
     else:
         pygame.draw.rect(dis, ic, (x, y, w, 70))
 
@@ -103,6 +101,48 @@ def game_intro():
         button("Login", 600, 300, 150, 70, red, bright_red, 50, "login")
         button("Register", 600, 400, 150, 70, red, bright_red, 40, "register")
         button("Quit", 600, 500, 150, 70, red, bright_red, 50, "quit")
+
+        pygame.display.update()
+        clock.tick(15)
+
+def game_login():
+
+    login = True
+
+    while login:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        dis.fill(black)
+        font_style = pygame.font.SysFont("bodoni 72", 70)
+        mesg = font_style.render("Login", True, red)
+        dis.blit(mesg, [dis_width / 2.25, dis_height / 4])
+
+        button("Play", 700, 600, 150, 70, red, bright_red, 50, "login")
+        button("Return", 500, 600, 150, 70, red, bright_red, 40, "return")
+
+        pygame.display.update()
+        clock.tick(15)
+
+def game_register():
+
+    register = True
+
+    while register:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        dis.fill(black)
+        font_style = pygame.font.SysFont("bodoni 72", 70)
+        mesg = font_style.render("Register", True, red)
+        dis.blit(mesg, [dis_width / 2.3, dis_height / 4])
+
+        button("Register", 700, 600, 150, 70, red, bright_red, 40, "login")
+        button("Return", 500, 600, 150, 70, red, bright_red, 40, "return")
 
         pygame.display.update()
         clock.tick(15)

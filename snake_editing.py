@@ -1,14 +1,17 @@
+import sys
+
 import pygame
 import random
 
 pygame.init()
 
-red = (255, 0, 0)
+red = (200, 0, 0)
 white = (255, 255, 255)
 black = (0, 0, 0)
 blue = (0, 0, 255)
 yellow = (255, 255, 102)
 green = (0, 255, 0)
+bright_red = (255, 0, 0)
 
 dis_width = 1366
 dis_height = 768
@@ -59,6 +62,50 @@ def message(msg, color):
     mesg = font_style.render(msg, True, color)
     dis.blit(mesg, [dis_width / 3.5, dis_height / 4])
 
+def button(msg, x, y, w, h, ic, ac, msgx, action=None):
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+
+    if x + w > mouse[0] > x and y + h > mouse[1] > y:
+        pygame.draw.rect(dis, ac, (x, y, w, h))
+        if click[0] == 1 and action != None:
+            if action == "login":
+                gameLoop()
+                # TODO
+            elif action == "quit":
+                pygame.quit()
+                sys.exit()
+            elif action == "register":
+                gameLoop()
+                # TODO
+    else:
+        pygame.draw.rect(dis, ic, (x, y, w, 70))
+
+    font_style = pygame.font.SysFont("bodoni 72", 25)
+    mesg = font_style.render(msg, True, white)
+    dis.blit(mesg, ((x + msgx), (y + (50 / 2))))
+
+def game_intro():
+
+    intro = True
+
+    while intro:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        dis.fill(black)
+        font_style = pygame.font.SysFont("bodoni 72", 70)
+        mesg = font_style.render("Eleven's Eggo Extravaganza", True, red)
+        dis.blit(mesg, [dis_width / 3.5, dis_height / 4])
+
+        button("Login", 600, 300, 150, 70, red, bright_red, 50, "login")
+        button("Register", 600, 400, 150, 70, red, bright_red, 40, "register")
+        button("Quit", 600, 500, 150, 70, red, bright_red, 50, "quit")
+
+        pygame.display.update()
+        clock.tick(15)
 
 def gameLoop():
     global snake_speed
@@ -156,9 +203,11 @@ def gameLoop():
 
         clock.tick(snake_speed)
 
+
     pygame.quit()
     quit()
 
+game_intro()
 gameLoop()
 
 

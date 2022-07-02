@@ -23,6 +23,8 @@ pygame.display.set_icon(waffle)
 waffle = pygame. transform. scale(waffle, (30, 30))
 bkg = pygame.image.load("background.jpeg")
 bkg = pygame. transform. scale(bkg, (dis_width, dis_height))
+input_user_rect = pygame.Rect(560,285,275,32)
+input_pass_rect = pygame.Rect(560,350,275,32)
 
 clock = pygame.time.Clock()
 
@@ -31,7 +33,7 @@ snake_speed = 15
 
 font_style = pygame.font.SysFont("bodoni 72", 30)
 score_font = pygame.font.SysFont("bodoni 72", 40)
-
+login_font = pygame.font.SysFont("bodoni 72", 40)
 
 def Your_score(score):
     value = score_font.render("Your Score: " + str(score), True, red)
@@ -105,6 +107,14 @@ def game_intro():
         pygame.display.update()
         clock.tick(15)
 
+def Your_username():
+    value = login_font.render("Username: ", True, white)
+    dis.blit(value, [400,285])
+
+def Your_password():
+    value = login_font.render("Password: ", True, white)
+    dis.blit(value, [405,350])
+
 def game_login():
 
     login = True
@@ -117,14 +127,25 @@ def game_login():
 
         dis.fill(black)
         font_style = pygame.font.SysFont("bodoni 72", 70)
-        mesg = font_style.render("Login", True, red)
-        dis.blit(mesg, [dis_width / 2.25, dis_height / 4])
+        mesg = font_style.render("Login", True, white)
+        dis.blit(mesg, [dis_width / 2.25, dis_height / 5])
 
-        button("Play", 700, 600, 150, 70, red, bright_red, 50, "login")
+        font_style = pygame.font.SysFont("bodoni 72", 30)
+        mesg = font_style.render("Please enter your login credentials", True, white)
+        dis.blit(mesg, [dis_width / 2.75, dis_height / 3.5])
+
+        pygame.draw.rect(dis, white, input_user_rect, 2)
+        pygame.draw.rect(dis, white, input_pass_rect, 2)
+
+        button("Login", 700, 600, 150, 70, red, bright_red, 50, "login")
         button("Return", 500, 600, 150, 70, red, bright_red, 40, "return")
+
+        Your_username()
+        Your_password()
 
         pygame.display.update()
         clock.tick(15)
+
 
 def game_register():
 
@@ -138,11 +159,21 @@ def game_register():
 
         dis.fill(black)
         font_style = pygame.font.SysFont("bodoni 72", 70)
-        mesg = font_style.render("Register", True, red)
-        dis.blit(mesg, [dis_width / 2.3, dis_height / 4])
+        mesg = font_style.render("Register", True, white)
+        dis.blit(mesg, [dis_width / 2.3, dis_height / 5])
+
+        font_style = pygame.font.SysFont("bodoni 72", 30)
+        mesg = font_style.render("Please enter your information below", True, white)
+        dis.blit(mesg, [dis_width / 2.75, dis_height / 3.5])
+
+        pygame.draw.rect(dis, white, input_user_rect, 2)
+        pygame.draw.rect(dis, white, input_pass_rect, 2)
 
         button("Register", 700, 600, 150, 70, red, bright_red, 40, "login")
         button("Return", 500, 600, 150, 70, red, bright_red, 40, "return")
+
+        Your_username()
+        Your_password()
 
         pygame.display.update()
         clock.tick(15)

@@ -14,10 +14,11 @@ dis_width = 1366
 dis_height = 768
 
 dis = pygame.display.set_mode((dis_width, dis_height))
-pygame.display.set_caption('Snake')
+pygame.display.set_caption('Eleven\'s Eggo Extravaganza')
 
 image = pygame.image.load(r'eleven-snake.png')
 waffle = pygame.image.load(r'waffle-snake.png')
+pygame.display.set_icon(waffle)
 waffle = pygame. transform. scale(waffle, (30, 30))
 bkg = pygame.image.load("background.jpeg")
 bkg = pygame. transform. scale(bkg, (dis_width, dis_height))

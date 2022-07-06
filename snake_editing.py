@@ -1,5 +1,6 @@
 import pygame
 import random
+import user_input
 
 pygame.init()
 
@@ -119,12 +120,10 @@ def game_login():
 
     login = True
 
-    while login:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
+    inputbox = user_input.InputBox(560, 280, 300, 32, pygame, dis)
+    inputbox2 = user_input.InputBox(560, 345, 300, 32, pygame, dis)
 
+    while login:
         dis.fill(black)
         font_style = pygame.font.SysFont("bodoni 72", 70)
         mesg = font_style.render("Login", True, white)
@@ -134,14 +133,27 @@ def game_login():
         mesg = font_style.render("Please enter your login credentials", True, white)
         dis.blit(mesg, [dis_width / 2.75, dis_height / 3.5])
 
-        pygame.draw.rect(dis, white, input_user_rect, 2)
-        pygame.draw.rect(dis, white, input_pass_rect, 2)
 
         button("Login", 700, 600, 150, 70, red, bright_red, 50, "login")
         button("Return", 500, 600, 150, 70, red, bright_red, 40, "return")
 
         Your_username()
         Your_password()
+
+        inputbox.draw()
+        inputbox2.draw()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.KEYDOWN:
+                inputbox.handle_event(event)
+                inputbox2.handle_event(event)
+                # inputbox.update()
+                inputbox.draw()
+                inputbox2.draw()
+                pygame.display.flip()
 
         pygame.display.update()
         clock.tick(15)
